@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add a Device</title>
+    <style>
+		
+		
+		.heading {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+		
+		
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-container {
+            width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button-container button.add-device {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button.add-device:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+	<h1 class="heading">Metro- Cash & Carry Asset Management System</h1>
+	<br>
+	
+    <h2>Add a Device</h2>
+    <div class="form-container">
+        <form action="/adddevice" method="POST">
+            <div class="form-group" style="width: 680px;">
+                <label for="deviceName">Device Name</label>
+                <input type="text" id="deviceName" name="deviceName" required>
+            </div>
+            <div class="form-group" style="width: 680px;">
+                <label for="deviceStock">Quantity</label>
+                <input type="text" id="deviceStock" name="deviceStock" required>
+            </div>
+            
+            <!-- Add more form fields for device details -->
+            <div class="button-container">
+                <button class="add-device" type="submit">Add Device</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

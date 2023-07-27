@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Add Page</title>
+     <link rel="stylesheet" type="text/css" th:href="@{/css/laptopadd.css}">
+</head>
+
+<style>
+	.error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+</style>
+<body>
+	
+	<div class="error-message" style="font-size: 20px;">Duplicate serial number. This serial number is already available.</div>
+	
+    <h1 class="heading">Metro- Cash & Carry Asset Management System</h1>
+	<br>
+	
+    <h2 style="text-align: center;">Server Add Page</h2>
+    <br>
+    <div class="form-container">
+        <form action="/addserver" method="POST">
+            <table class="vertical-table">
+                <tr>
+                    <th><label for="serialNumber">Serial Number</label></th>
+                    <td><input type="text" id="serialNumber" name="serialNumber" required style="width: 200px; height: 30px;"></td>
+
+                    <th><label for="model">Model</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                           <select id="model" name="model" onchange="handleModelChange(this)" required>
+                        <option value="" selected disabled>Select a model</option>
+                        <option value="DELL PowerEdge R340">DELL PowerEdge R340</option>
+                        <option value="DELL PowerEdge R350">DELL PowerEdge R350</option>
+                        <option value="DELL R440 vSAN Ready Node">DELL R440 vSAN Ready Node</option>
+                        <option value="DELL R450 Power Edge">DELL R450 Power Edge</option>
+                        <option value="HP ProLiant DL380 Gen10">HP ProLiant DL380 Gen10</option>
+                        <option value="HP ProLiant DL380 Gen7">HP ProLiant DL380 Gen7</option>
+                        <option value="HP ProLiant DL380 Gen9">HP ProLiant DL380 Gen9</option>
+                        <option value="HP ProLiant DL380p Gen8">HP ProLiant DL380p Gen8</option>
+                        
+                        <option value="Others">Others - Please specify</option>
+                              </select>
+                            <input type="text" id="otherModel" name="otherModel" placeholder="Enter Model" required style="display: none;">
+                        </div>
+                    </td>
+               
+                    <th><label for="storage">Storage</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                            <select id="storage" name="storage" onchange="handleStorageChange(this)" required>
+                                <option value="" selected disabled>Select the storage</option>
+                                <option value="600 x 4 (HDD), 600 x 4 (HDD">600 x 4 (HDD), 600 x 4 (HDD)</option>
+                                <option value="900 x 4 (HDD), 600 x 4 (HDD)">900 x 4 (HDD), 600 x 4 (HDD)</option>
+                                 <option value="160 x 2 (SSD), 800 GB(SSD), 1200 x 4 (HDD)">160 x 2 (SSD), 800 GB(SSD), 1200 x 4 (HDD)</option>
+                                <option value="1200 x 4 (HDD), 600 x 3 (HDD)">1200 x 4 (HDD), 600 x 3 (HDD)</option>
+                                <option value="256GB HDD">1800 x 4 (HDD)</option>
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+                            <input type="text" id="otherStorage" name="otherStorage" placeholder="Enter storage" required style="display: none;">
+                        </div>
+                    </td>
+               
+                    <th><label for="ram">RAM</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                            <select id="ram" name="ram" onchange="handleRAMChange(this)" required>
+                                <option value="" selected disabled>Select a RAM</option>
+                                <option value="64 GB (16 x 4 DDR4)">64 GB (16 x 4 DDR4) DIMM Slots, Speed upto 2400 MT/s</option>
+                                <option value="4 GB">64 GB (4 x DDR4) DIMM Slots, Speed upto 2666 MT/s</option>
+                                <option value="8 GB">64 GB (4 x DDR4) DIMM Slots, Speed upto 3200 MT/s</option>
+                                <option value="12 GB">128 GB (32 x 4 DDR4 DIMM Slots, speed upto 2666 MT/s</option>
+                                <option value="16 GB">128 GB (32 x 4 DIMM Slots, speed upto 2933 MT/s</option>
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+                            <input type="text" id="otherRAM" name="otherRAM" placeholder="Enter RAM" style="display: none;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="assetInDate">Asset In-Date</label></th>
+                    <td><input type="date" id="assetInDate" name="assetInDate" required style="width: 200px; height: 30px;"></td>
+                   <!-- <th>Warranty</th> -->
+                   <th><label for="warrantyType">Warranty Type</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                            <select id="warrantyType" name="warrantyType" onchange="handleWarrantyTypeChange(this)" required>
+                                <option value="" selected disabled>Select a Warranty Type</option>
+                                <option value="Onsite Warranty">Onsite Warranty</option>
+                                <option value="AMC/ASC">AMC/ASC</option>
+                                <option value="Extended Warranty">Extended Warranty</option>
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+                            <input type="text" id="otherWarrantyType" name="otherWarrantyType" placeholder="Enter Warranty Type" required style="display: none;">
+                        </div>
+                    </td>
+
+                
+                    <th><label for="location">Location</label></th>
+                    <td>
+						 <div class="dropdown-container">
+							 <select id="location" name="location" onchange="handleLocationChange(this)" required>
+								 <option value="" selected disabled>Select a Location</option>
+                                <option value="HeadOffice-Bangalore">HeadOffice-Bangalore</option>
+                                <option value="DC11-Kanakpura Road">DC11-Kanakpura Road</option>
+                                <option value="DC12-Hyderabad">DC12-Hyderabad</option>
+                                <option value="DC15-Hyderabad">DC15-Hyderabad</option>
+                                <option value="DC16-Hyderabad">DC16-Hyderabad</option>
+                                <option value="DC17-Vijaywada">DC17-Vijaywada</option>
+                                <option value="DC18-ElectronicCity">DC18-ElectronicCity</option>
+                                <option value="DC19-Binnypet">DC19-Binnypet</option>
+                                <option value="DC20-Mumbai">DC20-Mumbai</option>
+                                <option value="DC23-Mumbai">DC23-Mumbai</option>
+                                <option value="DC24-Indore">DC24-Indore</option>
+                                <option value="DC25-Surat ">DC25-Surat</option>
+                                <option value="DC26-K.R.Puram">DC26-K.R.Puram</option>
+                                <option value="DC27-Mysore Rd">DC27-Mysore Rd</option>
+                                 <option value="DC28-Ahemdabad">DC28-Ahemdabad</option>
+                                  <option value="DC29-Hyderabad">DC29-Hyderabad</option>
+                                   <option value="DC30-NASHIK">DC30-NASHIK</option>
+                                    <option value="DC32-MEERUT">DC32-MEERUT</option>
+                                     <option value="DC33-Hubli">DC33-Hubli</option>
+                                     <option value="DC34-Tumkur">DC34-Tumkur</option>
+                                     <option value="DC36-Guntur">DC36-Guntur</option>
+                                     <option value="DC37-Vizag">DC37-Vizag</option>
+                                     <option value="DC43-Zirakpur ">DC43-Zirakpur</option>
+                                     <option value="DC45-Jaipur">DC45-Jaipur</option>
+                                     <option value="DC46-Delhi">DC46-Delhi</option>
+                                     <option value="DC47-Jalandhar">DC47-Jalandhar</option>
+                                     <option value="DC48- Amritsar">DC48- Amritsar</option>
+                                     <option value="DC52-Delhi">DC52-Delhi</option>
+                                     <option value="DC53-Lucknow">DC53-Lucknow</option>
+                                     <option value="DC54-GHAZIABAD">DC54-GHAZIABAD</option>
+                                     <option value="DC60-Kolkata">DC60-Kolkata</option>
+                                     
+                                     
+                                
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+								 
+						 <input type="text" id="otherLocation" name="otherLocation" placeholder="Enter Location" required style="display: none;">
+				    </td>
+                    <!-- <th><label for="employeeName">Employee Name</label></th>
+                    <td><input type="text" id="employeeName" name="employeeName" required style="width: 200px; height: 30px;"></td>
+            
+                </tr>
+                <tr>
+
+                    <th><label for="employeeId">Employee Department</label></th>
+                    <td><input type="text" id="employeeId" name="employeeId" required style="width: 200px; height: 30px;"></td>
+                
+                    <th> <label for="employeePhoneNumber">Employee Phone Number</label></th>
+                    <td><input type="text" id="employeePhoneNumber" name="employeePhoneNumber" required style="width: 200px; height: 30px;"></td> -->
+                    <th><label for="remarks">Remarks</label></th>
+                    <td> <input type="text" id="remarks" name="remarks" required style="width: 200px; height: 30px;"></td>
+                    <!-- <th><label for="assetProvider">Asset Provided By</label></th>
+                    <td> <input type="text" id="assetProvider" name="assetProvider" required style="width: 200px; height: 30px;"></td>-->
+                   
+                </tr>  
+                
+              <!--   <tr>
+        <th><label for="serverPhoto">Server Photo</label></th>
+        <td colspan="3">
+            <div class="file-upload-container">
+                <label class="file-upload-label" for="serverPhoto">Select an image:</label>
+                <input class="file-upload-input" type="file" id="serverPhoto" name="serverPhoto">
+            </div>
+        </td>
+    </tr> -->
+                
+                
+            </table>
+            <br>
+            <br>
+            <div class="button-container">
+                <button class="add">Submit</button>
+            </div>
+        </form>
+    </div> 
+
+
+
+    <script>
+        function handleModelChange(select) {
+         const otherModelInput = document.getElementById('otherModel');
+         if (select.value === 'Others') {
+             otherModelInput.style.display = 'block';
+             otherModelInput.required = true;
+         } else {
+             otherModelInput.style.display = 'none';
+             otherModelInput.required = false;
+             // Set the selected value to the "model" input field
+             document.getElementById('model').value = select.value;
+         }
+     }
+ 
+ 
+ function handleStorageChange(select) {
+     const otherStorageInput = document.getElementById('otherStorage');
+     if (select.value === 'Others') {
+         otherStorageInput.style.display = 'block';
+         otherStorageInput.required = true;
+     } else {
+         otherStorageInput.style.display = 'none';
+         otherStorageInput.required = false;
+     }
+ }
+ 
+ 
+ 
+ function handleRAMChange(select) {
+     const otherRAMInput = document.getElementById('otherRAM');
+     if (select.value === 'Others') {
+         otherRAMInput.style.display = 'block';
+         otherRAMInput.required = true;
+     } else {
+         otherRAMInput.style.display = 'none';
+         otherRAMInput.required = false;
+     }
+ }
+ 
+ 
+ function handleLocationChange(select) {
+     const otherLocationInput = document.getElementById('otherLocation');
+     if (select.value === 'Others') {
+         otherLocationInput.style.display = 'block';
+         otherLocationInput.required = true;
+     } else {
+         otherLocationInput.style.display = 'none';
+         otherLocationInput.required = false;
+     }
+ }
+ 
+  function handleWarrantyTypeChange(select) {
+             const otherWarrantyTypeInput = document.getElementById('otherWarrantyType');
+             if (select.value === 'Others') {
+                 otherWarrantyTypeInput.style.display = 'block';
+                 otherWarrantyTypeInput.required = true;
+             } else {
+                 otherWarrantyTypeInput.style.display = 'none';
+                 otherWarrantyTypeInput.required = false;
+             }
+         }
+ 
+ 
+ 
+ function checkDuplicateSerialNumberServer() {
+        const serialNumberInput = document.getElementById('serialNumber');
+
+        fetch(`/checkDuplicateSerialNumberServer/${serialNumberInput.value}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.isDuplicateServer) {
+                    document.querySelector('.error-message').style.display = 'block';
+                } else {
+                    document.querySelector('.error-message').style.display = 'none';
+                    validateForm(); // If not a duplicate, proceed with form submission
+                }
+            });
+    }
+
+    // Attach event listener to the "Submit" button
+    document.querySelector('.add').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+
+        // Call the function to check for duplicate serial number before validation
+        checkDuplicateSerialNumberServer();
+    });
+    
+    
+    function validateForm() {
+           
+            document.querySelector('.error-message').style.display = 'none';
+            document.querySelector('form').submit();
+             }
+    
+         
+     </script>
+
+
+</body>
+</html>

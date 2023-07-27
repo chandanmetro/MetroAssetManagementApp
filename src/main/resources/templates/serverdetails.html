@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server details Page | Metro Asset Management System</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/laptopdetails.css}">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+
+<script type="text/javascript">
+	
+	
+	function exportToExcel() {
+  const wb = XLSX.utils.table_to_book(document.getElementById("myTable"), { sheet: "SheetJS" });
+  const wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+  function s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+    return buf;
+  }
+
+  const fileName = "Server_details.xlsx";
+  saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), fileName);
+}
+
+
+
+$(document).ready(function () {
+       
+
+        // Attach event listener to the search input field
+        $("#searchInput").on("keyup", function () {
+            searchTable();
+        });
+
+        // Function to perform the search
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = $("#searchInput");
+            filter = input.val().toUpperCase();
+            table = $("#myTable");
+            tr = table.find("tr");
+
+            // Loop through all table rows and hide those that don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break; // Show the row if at least one column matches the search query
+                        } else {
+                            tr[i].style.display = "none"; // Hide the row if no column matches the search query
+                        }
+                    }
+                }
+            }
+        }
+
+        
+    });
+
+
+
+
+
+$(document).ready(function(){
+$('[data-toggle="tooltip"]').tooltip();
+var actions = $("table td:last-child").html();
+$(document).on("click", ".add", function(){
+	var serialNumber=$("input[name=serialNumber]").val(); //get value by name input type text
+	var model=$("input[name=model]").val(); //get value by name input type text
+	var storage=$("input[name=storage]").val(); //get value by name input type text
+	var ram=$("input[name=ram]").val(); //get value by name input type text
+	var assetInDate=$("input[name=assetInDate]").val(); //get value by name input type text
+	var warrantyType=$("input[name=warrantyType]").val(); //get value by name input type text
+	var location=$("input[name=location]").val(); //get value by name input type text
+	//var employeeName=$("input[name=employeeName]").val(); //get value by name input type text
+	//var employeePhoneNumber=$("input[name=employeePhoneNumber]").val(); //get value by name input type text
+	var remarks=$("input[name=remarks]").val(); //get value by name input type text
+	//var assetProvider=$("input[name=assetProvider]").val(); //get value by name input type text
+	//var employeeId=$("input[name=employeeId]").val(); //get value by name input type text
+	
+	const dataToUpdate = {
+      serialNumber:serialNumber,
+      model: model,
+      storage:storage,
+      ram:ram,
+      assetInDate:assetInDate,
+      warrantyType:warrantyType,
+      location:location,
+     
+      remarks:remarks,
+     
+    };
+   
+     fetch("http://localhost:8020/update-data-server", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Add any other headers that your Java API might require, like authentication tokens, etc.
+      },
+      body: JSON.stringify(dataToUpdate),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+		  window.location.reload();
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the fetch request
+        console.error("Error updating data:", error);
+      });
+$(this).parents("tr").find(".error").first().focus();
+});
+
+$(document).on("click", ".edit", function(){
+	
+	
+ $(this).parents("tr").find("td:eq(0)").html('<input type="text" class="form-control" name="serialNumber"  value="' + $("#serialNumber").text() + '"readonly>');
+ $(this).parents("tr").find("td:eq(1)").html('<input type="text" class="form-control" name="model" value="'+ $("#model").text()+'" readonly>'); 
+$(this).parents("tr").find("td:eq(2)").html('<input type="text" class="form-control" name="storage" value="'+ $("#storage").text()+'">');  
+$(this).parents("tr").find("td:eq(3)").html('<input type="text" class="form-control" name="ram" value="'+ $("#ram").text()+'">'); 
+$(this).parents("tr").find("td:eq(4)").html('<input type="text" class="form-control" name="assetInDate" value="'+ $("#assetInDate").text()+'">');  
+$(this).parents("tr").find("td:eq(5)").html('<input type="text" class="form-control" name="warrantyType" value="'+ $("#warrantyType").text()+'" readonly>'); 
+$(this).parents("tr").find("td:eq(6)").html('<input type="text" class="form-control" name="location" value="'+ $("#location").text()+'">');  
+ 
+$(this).parents("tr").find("td:eq(10)").html('<input type="text" class="form-control" name="remarks" value="'+ $("#remarks").text()+'">');  
+
+$(this).parents("tr").find(".add, .edit").toggle();
+});
+
+
+$(document).on('click', '.save', function() {
+  
+  $('input').each(function() {
+    var content = $(this).val();
+    $(this).html(content);
+    $(this).contents().unwrap();
+  });
+  $(this).siblings('.edit').show();
+  $(this).hide();
+  
+});
+
+});
+</script>
+</head>
+<body>
+    <h1 class="heading">Metro- Cash & Carry Asset Management System</h1>
+	<br>
+<div class="container-fluid">
+<div class="table-wrapper">
+<div class="table-title">
+<div class="row">
+<div class="col-sm-3"><h2>Server <b>Details</b></h2></div>
+<div class="col-sm-3">
+    <input type="text" class="form-control" id="searchInput" placeholder="Search servers...">
+</div>
+<div class="col-sm-3" style="text-align: end;">
+	<a href="serveradd.html">
+<button type="button" class="btn btn-info" href="serveradd.html"><i class="fa fa-plus"></i> Add New Server</button>
+</a>
+</div>
+
+
+<div class="col-sm-3" style="text-align: end;">
+	<!--<button type="button" class="btn btn-success"><i class="fa fa-download"></i> Export to Excel</button>-->
+ <button type="button" class="btn btn-success" onclick="exportToExcel()"><i class="fa fa-download"></i> Export to Excel</button> 
+</div>
+
+
+</div>
+</div>
+<table class="table table-bordered" id="myTable">
+<thead>
+<tr>
+ <th>Serial Number</th>
+            <th>Model</th>
+       <!-- <th>Device MAC</th> 
+            <th>Processor</th>
+            <th>Screen Size</th> 
+            <th>Storage Type</th> -->
+            <th>Storage</th>
+            <th>RAM</th>
+            <th>Asset In-date</th>
+           <!-- <th>Warranty</th> -->
+            <th>Warrant Type</th>
+            <th>Location</th>
+             <!--<th>Employee Name</th>
+            <th>Employee Department</th>
+            <th>Employee Phone Number</th>-->
+            <th>Remarks</th>
+            <!-- <th>Asset Provided By</th>-->
+            <th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="server : ${servers}">
+<td th:text="${server.serialNumber}" id="serialNumber" class="data"></td>
+<td th:text="${server.model}"  id="model" class="data"></td> 
+           
+            <td th:text="${server.storage}"  id="storage" class="data"></td>
+            <td th:text="${server.ram}"  id="ram" class="data"></td>
+            <td th:text="${server.assetInDate}"  id="assetInDate" class="data"></td>
+            <!--  <td th:text="${server.warranty}"  id="warranty" class="data"></td>  -->
+            <td th:text="${server.warrantyType}"  id="warrantyType" class="data"></td>
+            
+            <td th:text="${server.location}"  id="location" class="data"></td>
+            <!-- <td th:text="${server.employeeName}"  id="employeeName" class="data"></td>
+            <td th:text="${server.employeeId}"  id="employeeId" class="data"></td>
+            <td th:text="${server.employeePhoneNumber}"  id="employeePhoneNumber" class="data"></td>-->
+            <td th:text="${server.remarks}"  id="remarks" class="data"></td>
+             <!-- <td th:text="${server.assetProvider}"  id="assetProvider" class="data"></td> -->
+<td>
+<a class="add" title="Save" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

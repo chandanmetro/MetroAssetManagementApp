@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Desktop Add Page</title>
+     <link rel="stylesheet" type="text/css" th:href="@{/css/laptopadd.css}">
+</head>
+
+<style>
+	.error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+</style>
+<body>
+	
+	<div class="error-message" style="font-size: 20px;">Duplicate serial number. This serial number is already available.</div>
+	
+    <h1 class="heading">Metro- Cash & Carry Asset Management System</h1>
+	<br>
+	
+    <h2 style="text-align: center;">Desktop Add Page</h2>
+    <br>
+    <div class="form-container">
+        <form action="/adddesktop" method="POST">
+            <table class="vertical-table">
+                <tr>
+                    <th><label for="serialNumber">Serial Number</label></th>
+                    <td><input type="text" id="serialNumber" name="serialNumber" required style="width: 200px; height: 30px;"></td>
+
+                    <th><label for="model">Model</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                           <select id="model" name="model" onchange="handleModelChange(this)" required>
+                        <option value="" selected disabled>Select a model</option>
+                        <option value="HP EliteBook 820 G1">HP EliteBook 820 G1</option>
+                        <option value="HP EliteBook 820 G2">HP EliteBook 820 G2</option>
+                        <option value="HP EliteBook 820 G3">HP EliteBook 820 G3</option>
+                        <option value="HP EliteBook 820 G4">HP EliteBook 820 G4</option>
+                        <option value="HP EliteBook 830 G5">HP EliteBook 830 G5</option>
+                        <option value="HP EliteBook 830 G6">HP EliteBook 830 G6</option>
+                        <option value="HP EliteBook 830 G8">HP EliteBook 830 G8</option>
+                        <option value="DELL LATITUDE 5320">DELL LATITUDE 5320</option>
+                        
+                        <option value="Others">Others - Please specify</option>
+                              </select>
+                            <input type="text" id="otherModel" name="otherModel" placeholder="Enter Model" style="display: none;">
+                        </div>
+                    </td>
+               
+                    <th><label for="storage">Storage</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                            <select id="storage" name="storage" onchange="handleStorageChange(this)" required>
+                                <option value="" selected disabled>Select the storage</option>
+                                <option value="40GB HDD">40GB HDD</option>
+                                <option value="80GB HDD">80GB HDD</option>
+                                 <option value="120GB HDD">120GB HDD</option>
+                                <option value="160GB HDD">160GB HDD</option>
+                                <option value="256GB HDD">256GB HDD</option>
+                                <option value="500GB HDD">500GB HDD</option>
+                                <option value="1TB HDD">1TB HDD</option>
+                                 <option value="120GB SSD">120GB SSD</option>
+                                 <option value="256GB SSD">256GB SSD</option>
+                                 <option value="500GB SSD">500GB SSD</option>
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+                            <input type="text" id="otherStorage" name="otherStorage" placeholder="Enter storage" style="display: none;">
+                        </div>
+                    </td>
+               
+                    <th><label for="ram">RAM</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                            <select id="ram" name="ram" onchange="handleRAMChange(this)" required>
+                                <option value="" selected disabled>Select a RAM</option>
+                                <option value="2 GB">2 GB</option>
+                                <option value="4 GB">4 GB</option>
+                                <option value="8 GB">8 GB</option>
+                                <option value="12 GB">12 GB</option>
+                                <option value="16 GB">16 GB</option>
+                                <option value="32 GB">32 GB</option>
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+                            <input type="text" id="otherRAM" name="otherRAM" placeholder="Enter RAM" style="display: none;">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="assetInDate">Asset In-Date</label></th>
+                    <td><input type="date" id="assetInDate" name="assetInDate" required style="width: 200px; height: 30px;"></td>
+                   <!-- <th>Warranty</th> -->
+                   <th><label for="warrantyType">Warranty Type</label></th>
+                    <td>
+                        <div class="dropdown-container">
+                            <select id="warrantyType" name="warrantyType" onchange="handleWarrantyTypeChange(this)" required>
+                                <option value="" selected disabled>Select a Warranty Type</option>
+                                <option value="Onsite Warranty">Onsite Warranty</option>
+                                <option value="AMC/ASC">AMC/ASC</option>
+                                <option value="Extended Warranty">Extended Warranty</option>
+                                <option value="Others">Others - Please specify</option>
+                            </select>
+                            <input type="text" id="otherWarrantyType" name="otherWarrantyType" placeholder="Enter Warranty Type" style="display: none;">
+                        </div>
+                    </td>
+
+                
+                    <th><label for="location">Location</label></th>
+                    <td> <input type="text" id="location" name="location" required style="width: 200px; height: 30px;"></td>
+                    <th><label for="employeeName">Employee Name</label></th>
+                    <td><input type="text" id="employeeName" name="employeeName" required style="width: 200px; height: 30px;"></td>
+            
+                </tr>
+                <tr>
+
+                    <th><label for="employeeId">Employee Department</label></th>
+                    <td><input type="text" id="employeeId" name="employeeId" required style="width: 200px; height: 30px;"></td>
+                
+                    <th> <label for="employeePhoneNumber">Employee Phone Number</label></th>
+                    <td><input type="text" id="employeePhoneNumber" name="employeePhoneNumber" required style="width: 200px; height: 30px;"></td>
+                    <th><label for="remarks">Remarks</label></th>
+                    <td> <input type="text" id="remarks" name="remarks" required style="width: 200px; height: 30px;"></td>
+                    <th><label for="assetProvider">Asset Provided By</label></th>
+                    <td> <input type="text" id="assetProvider" name="assetProvider" required style="width: 200px; height: 30px;"></td>
+                   
+                </tr>  
+                
+              <!--   <tr>
+        <th><label for="desktopPhoto">Desktop Photo</label></th>
+        <td colspan="3">
+            <div class="file-upload-container">
+                <label class="file-upload-label" for="desktopPhoto">Select an image:</label>
+                <input class="file-upload-input" type="file" id="desktopPhoto" name="desktopPhoto">
+            </div>
+        </td>
+    </tr> -->
+                
+                
+            </table>
+            <br>
+            <br>
+            <div class="button-container">
+                <button class="add">Submit</button>
+            </div>
+        </form>
+    </div> 
+
+
+
+    <script>
+        function handleModelChange(select) {
+         const otherModelInput = document.getElementById('otherModel');
+         if (select.value === 'Others') {
+             otherModelInput.style.display = 'block';
+             otherModelInput.required = true;
+         } else {
+             otherModelInput.style.display = 'none';
+             otherModelInput.required = false;
+             // Set the selected value to the "model" input field
+             document.getElementById('model').value = select.value;
+         }
+     }
+ 
+ 
+ function handleStorageChange(select) {
+     const otherStorageInput = document.getElementById('otherStorage');
+     if (select.value === 'Others') {
+         otherStorageInput.style.display = 'block';
+         otherStorageInput.required = true;
+     } else {
+         otherStorageInput.style.display = 'none';
+         otherStorageInput.required = false;
+     }
+ }
+ 
+ 
+ 
+ function handleRAMChange(select) {
+     const otherRAMInput = document.getElementById('otherRAM');
+     if (select.value === 'Others') {
+         otherRAMInput.style.display = 'block';
+         otherRAMInput.required = true;
+     } else {
+         otherRAMInput.style.display = 'none';
+         otherRAMInput.required = false;
+     }
+ }
+ 
+  function handleWarrantyTypeChange(select) {
+             const otherWarrantyTypeInput = document.getElementById('otherWarrantyType');
+             if (select.value === 'Others') {
+                 otherWarrantyTypeInput.style.display = 'block';
+                 otherWarrantyTypeInput.required = true;
+             } else {
+                 otherWarrantyTypeInput.style.display = 'none';
+                 otherWarrantyTypeInput.required = false;
+             }
+         }
+ 
+ 
+ 
+ function checkDuplicateSerialNumberDesktop() {
+        const serialNumberInput = document.getElementById('serialNumber');
+
+        fetch(`/checkDuplicateSerialNumberDesktop/${serialNumberInput.value}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.isDuplicateDesktop) {
+                    document.querySelector('.error-message').style.display = 'block';
+                } else {
+                    document.querySelector('.error-message').style.display = 'none';
+                    validateForm(); // If not a duplicate, proceed with form submission
+                }
+            });
+    }
+
+    // Attach event listener to the "Submit" button
+    document.querySelector('.add').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+
+        // Call the function to check for duplicate serial number before validation
+        checkDuplicateSerialNumberDesktop();
+    });
+    
+    
+    function validateForm() {
+           
+            document.querySelector('.error-message').style.display = 'none';
+            document.querySelector('form').submit();
+             }
+    
+         
+     </script>
+
+
+</body>
+</html>
